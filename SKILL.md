@@ -92,41 +92,114 @@ SparkSatchel: "Found several matching skills. Which one fits best?
 - csv-skill: CSV file handling"
 ```
 
-## Builtin Models
+## Embedding Models
 
-SparkSatchel includes a lightweight bilingual embedding model for offline use:
+### Pre-installed Model (Ready to Use)
 
-- **Model**: paraphrase-multilingual-MiniLM-L12-v2
+SparkSatchel comes with a pre-downloaded bilingual embedding model:
+
+- **Model**: `paraphrase-multilingual-MiniLM-L12-v2`
 - **Size**: ~470MB
 - **Languages**: 50+ including Chinese and English
-- **First download**: Automatically downloaded on first use
+- **Dimension**: 384
+- **Status**: ✅ Pre-downloaded, ready to use out-of-the-box
+- **Location**: `~/.cache/huggingface/hub/`
 
-### Optional: Use Better Models
+The default model provides good balance between:
+- ✅ Bilingual support (Chinese + English)
+- ✅ Lightweight size
+- ✅ Fast inference
+- ✅ Offline capability
 
-For improved accuracy, you can install additional models:
+### Model Selection Guide
 
+Choose the right model based on your scenario:
+
+#### Model Comparison
+
+| Model | Size | Languages | Speed | Accuracy | Best For |
+|-------|------|-----------|-------|----------|----------|
+| **paraphrase-multilingual-MiniLM-L12-v2** | 470MB | 50+ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | **Default choice** - Balanced performance |
+| **shibing624/text2vec-base-chinese** | 110MB | Chinese | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | **Chinese-only** - Faster & more accurate |
+| **intfloat/multilingual-e5-large** | 1.3GB | 100+ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | **High accuracy** - Best for complex queries |
+| **BAAI/bge-large-zh-v1.5** | 390MB | Chinese | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | **Chinese advanced** - State-of-the-art |
+| **all-MiniLM-L6-v2** | 23MB | English | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | **English only** - Ultra lightweight |
+
+#### Scenario Recommendations
+
+**Scenario 1: Chinese-dominant environment**
 ```bash
-# For better Chinese performance
+# Download Chinese-optimized model
 pip install sentence-transformers
-# Model: text2vec-base-chinese (110MB)
-
-# For multilingual support
-pip install sentence-transformers
-# Model: intfloat/multilingual-e5-large (1.3GB)
-
-# For API-based embedding (requires API key)
-pip install openai
-# Uses: text-embedding-3-small
+python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('shibing624/text2vec-base-chinese')"
 ```
 
-To use a custom model, modify `src/models/embedding.py`:
+**Scenario 2: English-only (fastest)**
+```bash
+# Download ultra-lightweight model
+pip install sentence-transformers
+python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
+```
+
+**Scenario 3: Maximum accuracy (multilingual)**
+```bash
+# Download high-accuracy model
+pip install sentence-transformers
+python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('intfloat/multilingual-e5-large')"
+```
+
+**Scenario 4: Cloud-based (no local storage)**
+```bash
+# Use OpenAI API (requires API key)
+pip install openai
+```
+
+### How to Switch Models
+
+**Option 1: Modify code (permanent)**
+
+Edit `src/models/embedding.py`:
+```python
+class EmbeddingModel:
+    # Change default model
+    DEFAULT_MODEL = "shibing624/text2vec-base-chinese"  # Your choice
+```
+
+**Option 2: Pass model name (temporary)**
 
 ```python
-model = EmbeddingModel(
-    model_name="text2vec-base-chinese",  # Your model
-    device="cpu"  # or "cuda" for GPU
+from src.models.embedding import EmbeddingModel
+from src.retriever import SparkSatchel
+
+# Use custom model
+custom_model = EmbeddingModel(
+    model_name="shibing624/text2vec-base-chinese",
+    device="cpu"  # or "cuda" for GPU acceleration
 )
+
+# Pass to SparkSatchel
+sparksatchel = SparkSatchel(embedding_model=custom_model)
 ```
+
+**Option 3: Use OpenAI API**
+
+```python
+import openai
+
+def openai_embedding(text: str) -> list:
+    response = openai.Embedding.create(
+        model="text-embedding-3-small",
+        input=text
+    )
+    return response['data'][0]['embedding']
+```
+
+### Model Performance Tips
+
+1. **GPU Acceleration**: If you have NVIDIA GPU, use `device="cuda"` for 5-10x speedup
+2. **Batch Processing**: Process multiple texts at once for better throughput
+3. **Caching**: Models are cached after first download, no re-downloading needed
+4. **Quantization**: For memory-constrained environments, use 8-bit quantized models
 
 ## Project Structure
 

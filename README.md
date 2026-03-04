@@ -32,19 +32,28 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/yourusername/SparkSatchel.git
-cd SparkSatchel
+git clone https://github.com/gccszs/Spark-Satchel.git
+cd Spark-Satchel
 
 # 安装依赖
 pip install -r requirements.txt
 ```
+
+### ✨ 开袋即用
+
+**好消息！** Embedding 模型已经预下载，无需等待：
+
+- ✅ **预装模型**: paraphrase-multilingual-MiniLM-L12-v2 (~470MB)
+- ✅ **中英双语**: 开箱即用，支持 50+ 语言
+- ✅ **离线可用**: 无需联网，完全本地运行
+- ✅ **即装即用**: 安装依赖后立即使用
 
 ### 基本使用
 
 ```python
 from src.retriever import SparkSatchel
 
-# 初始化
+# 初始化（模型已预装，无需等待下载）
 sparksatchel = SparkSatchel()
 
 # 检索技能

@@ -355,6 +355,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 Compatible with Claude Code, Cursor, Windsurf, Trae, and all AI IDEs
 
-Made with ❤️ by [SparkSatchel Team](https://github.com/gccszs/Spark-Satchel)
+🐝 Made with ❤️ by <a href="https://github.com/gccszs">Codestyle Team</a>
 
 </div>

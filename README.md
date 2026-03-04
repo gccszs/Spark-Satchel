@@ -355,6 +355,6 @@ SparkSatchel/
 
 适用于 Claude Code、Cursor、Windsurf、Trae 等所有 AI IDE
 
-Made with ❤️ by [SparkSatchel Team](https://github.com/gccszs/Spark-Satchel)
+🐝 Made with ❤️ by <a href="https://github.com/gccszs">Codestyle Team</a>
 
 </div>

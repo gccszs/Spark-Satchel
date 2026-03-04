@@ -61,11 +61,10 @@
 ### 方式一：npx 安装（推荐）
 
 ```bash
-# 使用 npx 快速安装
-npx sparksatchel
+# 使用 npx 快速安装技能
+npx skills add gccszs/Spark-Satchel
 
-# 安装完成后直接使用
-python -c "from src.retriever import SparkSatchel; s = SparkSatchel(); print(s.retrieve('处理PDF').reasoning)"
+# 安装完成即可使用，无需额外配置
 ```
 
 ### 方式二：Git 克隆

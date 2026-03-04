@@ -64,10 +64,9 @@ As the AI skill ecosystem grows, users may install hundreds of skills. When comp
 
 ```bash
 # Quick install with npx
-npx sparksatchel
+npx skills add gccszs/Spark-Satchel
 
-# Use immediately after installation
-python -c "from src.retriever import SparkSatchel; s = SparkSatchel(); print(s.retrieve('process PDF').reasoning)"
+# Ready to use immediately after installation
 ```
 
 ### Method 2: Git Clone

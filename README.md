@@ -1,44 +1,98 @@
 <div align="center">
 
-# SparkSatchel 灵犀妙计
+# 🧠 SparkSatchel 灵犀妙计
 
-**Intelligent Skill Retrieval & Recommendation System**
+**智能技能检索与推荐系统**
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![Embedding](https://img.shields.io/badge/Embedding-Bilingual-orange)](#embedding-models)
+[![Embedding](https://img.shields.io/badge/Embedding-50%2B%20Languages-orange)](#embedding-模型)
+
+[English](./README_EN.md) | **中文**
+
+---
 
 **"身无彩凤双飞翼，心有灵犀一点通"**
 
-*"Without colorful phoenix wings to fly to you, our hearts connect at a single point."*
+灵犀妙计帮助你和你的 Agent 从万千技能中推断出你最适合当前任务的技能。
 
-**SparkSatchel helps you and your Agent find the perfect SKILL from thousands, inferring the best match for your current task. A different kind of spark!**
+不一样的花火！⚡
 
-[English](#english) | [中文](#中文)
+---
+
+*适用于 Claude Code、Cursor、Windsurf、Trae 等所有 AI IDE*
 
 </div>
 
 ---
 
-## 中文 {#中文}
+## 📖 目录
 
-### 🎯 简介
+- [简介](#简介)
+- [核心特点](#核心特点)
+- [快速开始](#快速开始)
+- [决策机制](#决策机制)
+- [功能详解](#功能详解)
+- [技术架构](#技术架构)
+- [文档](#文档)
+- [贡献](#贡献)
+- [许可证](#许可证)
 
-**SparkSatchel (灵犀妙计)** 是一个 Meta-Skill，专为 Claude Code 设计的智能技能检索系统。它通过语义分析、意图推断和历史学习，帮助用户从海量技能中快速找到最合适的那个。
+---
 
-> "身无彩凤双飞翼，心有灵犀一点通"
+## 🎯 简介
 
-在成千上万的技能中，灵犀妙计帮助你找到最适合当前任务的那一个。这，就是不一样的花火！
+**SparkSatchel (灵犀妙计)** 是一个智能技能检索与推荐系统，适用于所有 AI IDE（Claude Code、Cursor、Windsurf、Trae 等）。
 
-### ✨ 核心特点
+它通过语义分析、意图推断和历史学习，帮助用户从海量技能中快速找到最合适的那个。
 
-- 🧠 **智能推断** - 理解用户意图，语义匹配技能
-- ⚖️ **审慎决策** - 三思而后行，高置信度自动推荐，低置信度询问用户
-- 📚 **持续学习** - 记录使用历史，优化推荐准确性
-- 🌏 **中英双语** - 内置 50+ 语言支持，开袋即用
-- 🔧 **易于维护** - 智能缓存管理，自动健康检查
+### 为什么需要灵犀妙计？
 
-### 🚀 快速开始
+随着 AI 技能生态系统的发展，用户可能会安装数百个技能。当需要完成某个任务时：
+
+```
+❌ 传统方式：手动搜索技能名称，逐个查看描述
+✅ 灵犀妙计：描述你的需求，自动推荐最合适的技能
+```
+
+---
+
+## ✨ 核心特点
+
+### 🧠 智能推断
+
+- 理解用户意图的自然语言描述
+- 基于 embedding 的语义相似度匹配
+- 支持 50+ 语言，中英双语优化
+
+### ⚖️ 审慎决策
+
+根据置信度智能响应：
+
+| 置信度 | 行为 | 示例 |
+|--------|------|------|
+| **高 (>70%)** | 自动推荐 + 说明理由 | "建议用 pdf-skill，成功率 92%" |
+| **中 (40-70%)** | 推荐 + 备选方案 | "建议用 docx-skill，备选：pdf-skill" |
+| **低 (<40%)** | 展示候选 + 询问用户 | "请选择：xlsx-skill、pandas-skill..." |
+
+### 📚 持续学习
+
+- 记录每次技能调用
+- 追踪成功/失败反馈
+- 计算技能成功率
+- 动态优化推荐排序
+
+### 🔧 易于维护
+
+- 自动健康检查（检测技能状态）
+- 智能缓存清理（释放存储空间）
+- 生命周期管理（版本迁移、降级策略）
+
+---
+
+## 🚀 快速开始
+
+### 安装
 
 ```bash
 # 克隆仓库
@@ -49,12 +103,21 @@ cd Spark-Satchel
 pip install -r requirements.txt
 ```
 
-**✨ 开袋即用！** Embedding 模型已预下载 (~470MB)，无需等待。
+### ✨ 开袋即用
+
+**好消息！** Embedding 模型已预下载 (~470MB)，无需等待：
+
+- ✅ **预装模型**: paraphrase-multilingual-MiniLM-L12-v2
+- ✅ **中英双语**: 支持 50+ 语言
+- ✅ **离线可用**: 无需联网
+- ✅ **即装即用**: 安装依赖后立即使用
+
+### 基本使用
 
 ```python
 from src.retriever import SparkSatchel
 
-# 初始化
+# 初始化（模型已预装）
 sparksatchel = SparkSatchel()
 
 # 检索技能
@@ -62,72 +125,227 @@ result = sparksatchel.retrieve("处理这个PDF")
 
 # 根据置信度响应
 if result.confidence > 0.7:
-    print(f"建议使用 {result.recommended_skill}")
+    # 高置信度 - 直接推荐
+    print(f"✅ 建议使用 {result.recommended_skill}")
     print(result.reasoning)
+
 elif result.confidence > 0.4:
-    print(f"建议使用 {result.recommended_skill}")
-    print(f"备选：{result.alternative_skills}")
+    # 中置信度 - 提供备选
+    print(f"💡 建议使用 {result.recommended_skill}")
+    print(f"备选：{', '.join(result.alternative_skills)}")
+
 else:
-    print("请选择：")
+    # 低置信度 - 询问用户
+    print("❓ 请从以下技能中选择：")
     for skill in result.candidate_skills:
-        print(f"  - {skill['skill_name']}")
+        print(f"  - {skill['skill_name']}: {skill['description']}")
+
+# 记录反馈（帮助系统学习）
+sparksatchel.feedback(result.recommended_skill, success=True)
 ```
 
-### 📊 决策机制
+---
+
+## 📊 决策机制
 
 ```
-高置信度 (>70%) → 自动推荐 + 说明理由
-中置信度 (40-70%) → 推荐 + 备选方案
-低置信度 (<40%) → 展示候选 + 询问用户
+用户请求 → 意图推断 → 向量检索 → 置信度评估 → 决策
+                                              ↓
+                    ┌─────────────────────────────────┐
+                    │           置信度                │
+                    ├─────────────────────────────────┤
+                    │ 高 (>70%)  │ 中 (40-70%) │ 低    │
+                    ├─────────────────────────────────┤
+                    │ 自动推荐   │ 推荐+备选   │ 询问  │
+                    └─────────────────────────────────┘
 ```
 
-### 🛠️ 功能详解
+### 使用示例
 
-| 功能 | 说明 |
+**示例 1：高置信度**
+```
+用户: "处理这个PDF"
+灵犀妙计: "建议用 pdf-skill，因为它专门处理 PDF 文档（历史成功率 92%）"
+```
+
+**示例 2：中置信度**
+```
+用户: "创建文档"
+灵犀妙计: "建议用 docx-skill。pdf-skill 也可以，要我详细对比吗？"
+```
+
+**示例 3：低置信度**
+```
+用户: "处理数据"
+灵犀妙计: "找到 3 个可能符合的技能：
+  - xlsx-skill: Excel 电子表格处理
+  - pandas-skill: Python 数据分析
+  - csv-skill: CSV 文件处理
+请选择最合适的一个。"
+```
+
+---
+
+## 🛠️ 功能详解
+
+### 1. 语义检索
+
+| 特性 | 说明 |
 |------|------|
-| **语义检索** | 基于 embedding 的向量相似度搜索 |
-| **意图推断** | 提取用户请求的核心意图和关键词 |
-| **置信度评估** | 多维度综合评分：相似度、历史、相关性 |
-| **历史学习** | 追踪调用成功率，动态优化排序 |
-| **健康检查** | 检测技能状态，提供降级策略 |
-| **缓存管理** | 智能清理策略，释放存储空间 |
+| **分库存储** | 技能按类别分库，提升检索效率 |
+| **向量相似度** | 基于 embedding 的语义匹配 |
+| **中英双语** | 默认模型支持 50+ 语言 |
 
-### 📁 项目结构
+### 2. 意图推断
+
+从用户请求中提取：
+- 主要意图（如：文档处理、项目创建）
+- 关键词（如：PDF、Word、Excel）
+- 实体（如：文件名、格式）
+
+### 3. 置信度评估
+
+多维度综合评分：
+- **相似度** (50%): 语义匹配程度
+- **历史表现** (30%): 成功率和调用次数
+- **相关性** (15%): 关键词匹配
+- **新鲜度** (5%): 最近使用加成
+
+### 4. 历史学习
+
+```python
+# 获取技能统计
+stats = sparksatchel.history.get_skill_stats("pdf-skill")
+print(f"成功率: {stats.success_rate:.0%}")
+print(f"调用次数: {stats.total_calls}")
+print(f"最后调用: {stats.last_called}")
+```
+
+### 5. 健康检查
+
+```python
+# 检查系统健康
+health = sparksatchel.check_health()
+
+if health["cache"]["needs_cleanup"]:
+    print(f"⚠️ {health['suggestion']}")
+
+if health["skills"]["unhealthy_count"] > 0:
+    print(f"⚠️ 发现 {health['skills']['unhealthy_count']} 个异常技能")
+```
+
+### 6. 缓存管理
+
+```python
+from src.maintenance.cache import CleanupStrategy
+
+# 按时间清理（删除 30 天前的记录）
+sparksatchel.cleanup(CleanupStrategy.by_age(days=30))
+
+# 按数量清理（保留最近 1000 条）
+sparksatchel.cleanup(CleanupStrategy.by_count(keep=1000))
+
+# 自动清理（如果需要）
+sparksatchel.cache_manager.auto_cleanup_if_needed()
+```
+
+---
+
+## 🔧 技术架构
+
+### 技术栈
+
+| 组件 | 技术 | 说明 |
+|------|------|------|
+| 编程语言 | Python 3.10+ | 主要开发语言 |
+| 向量数据库 | ChromaDB | 本地向量存储 |
+| Embedding | sentence-transformers | 中英双语支持 |
+| 历史记录 | SQLite | 轻量级数据库 |
+| 向量计算 | NumPy | 高效数值计算 |
+
+### 项目结构
 
 ```
 SparkSatchel/
-├── SKILL.md       # Meta-skill 定义
-├── README.md      # 本文档
-├── MODELS.md      # 模型选择指南
-├── requirements.txt
-└── src/
-    ├── retriever.py      # 主入口
-    ├── models/           # Embedding 封装
-    ├── storage/          # 向量库 + 历史
-    ├── analysis/         # 意图 + 置信度
-    └── maintenance/      # 健康 + 生命周期 + 缓存
+├── SKILL.md               # Meta-skill 定义
+├── README.md              # 本文档（中文）
+├── README_EN.md           # 英文文档
+├── DESIGN.md              # 设计文档
+├── MODELS.md              # 模型选择指南
+├── GITHUB_DESCRIPTION.md  # 仓库介绍文案
+├── requirements.txt       # 依赖列表
+│
+├── scripts/               # 工具脚本
+│   └── download_model.py  # 模型下载脚本
+│
+├── src/                   # 源代码
+│   ├── retriever.py       # 主入口
+│   ├── models/            # Embedding 封装
+│   ├── storage/           # 向量库 + 历史
+│   ├── analysis/          # 意图 + 置信度
+│   └── maintenance/       # 健康 + 生命周期 + 缓存
+│
+└── data/                  # 数据目录
+    ├── collections/       # 向量数据库（分库）
+    ├── history.db         # 历史记录
+    └── cache/             # 缓存目录
 ```
 
-### 🔧 技术栈
+---
 
-- **Python** 3.10+
-- **ChromaDB** - 向量数据库
-- **sentence-transformers** - Embedding 模型
-- **SQLite** - 历史记录
+## 📚 文档
 
-### 📖 文档
+| 文档 | 描述 |
+|------|------|
+| [DESIGN.md](DESIGN.md) | 完整的系统设计文档 |
+| [MODELS.md](MODELS.md) | Embedding 模型选择和下载指南 |
+| [SKILL.md](SKILL.md) | Meta-skill 定义（英文） |
 
-- [设计文档](DESIGN.md) - 完整的系统设计说明
-- [模型指南](MODELS.md) - Embedding 模型选择和下载
-- [SKILL.md](SKILL.md) - Meta-skill 定义
+---
 
-### 🤝 贡献
+## 🎨 设计理念
+
+### 灵犀 (Spark)
+
+> "身无彩凤双飞翼，心有灵犀一点通"
+
+- 理解用户意图的火花
+- 语义相似度匹配
+- 中英双语支持
+
+### 妙计 (Satchel)
+
+> "锦囊妙计，随需随取"
+
+- 装满技能的锦囊
+- 审慎决策机制
+- 持续学习优化
+
+---
+
+## 🤝 贡献
 
 欢迎贡献代码、报告问题或提出建议！
 
-### 📄 许可证
+1. Fork 本项目
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启 Pull Request
 
-[MIT License](LICENSE)
+---
+
+## 📄 许可证
+
+本项目采用 [MIT License](LICENSE) 开源协议。
+
+---
+
+## 🙏 致谢
+
+- [ChromaDB](https://github.com/chroma-core/chroma) - 优秀的向量数据库
+- [sentence-transformers](https://github.com/UKPLab/sentence-transformers) - 强大的文本 Embedding
+- 所有贡献者和使用者
 
 ---
 
@@ -135,126 +353,7 @@ SparkSatchel/
 
 **让每一次技能调用都精准到位** ⚡
 
-Made with ❤️ by [SparkSatchel Team](https://github.com/gccszs/Spark-Satchel)
-
-</div>
-
----
-
-## English {#english}
-
-### 🎯 Overview
-
-**SparkSatchel** is a Meta-Skill designed for Claude Code that provides intelligent skill retrieval and recommendation. Through semantic analysis, intent inference, and historical learning, it helps users quickly find the most suitable skill from thousands.
-
-> "身无彩凤双飞翼，心有灵犀一点通"
-
-From thousands of skills, SparkSatchel infers the perfect match for your current task. A different kind of spark!
-
-### ✨ Key Features
-
-- 🧠 **Smart Inference** - Understands user intent, semantically matches skills
-- ⚖️ **Prudent Decision** - Thinks before acting: auto-recommends with high confidence, asks user with low confidence
-- 📚 **Continuous Learning** - Tracks usage history, optimizes recommendations
-- 🌏 **Bilingual Support** - Built-in 50+ languages, ready to use out of the box
-- 🔧 **Easy Maintenance** - Smart cache management, automatic health checks
-
-### 🚀 Quick Start
-
-```bash
-# Clone repository
-git clone https://github.com/gccszs/Spark-Satchel.git
-cd Spark-Satchel
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-**✨ Ready to use!** The embedding model is pre-downloaded (~470MB), no waiting required.
-
-```python
-from src.retriever import SparkSatchel
-
-# Initialize
-sparksatchel = SparkSatchel()
-
-# Retrieve skills
-result = sparksatchel.retrieve("process this PDF")
-
-# Respond based on confidence
-if result.confidence > 0.7:
-    print(f"Recommend: {result.recommended_skill}")
-    print(result.reasoning)
-elif result.confidence > 0.4:
-    print(f"Recommend: {result.recommended_skill}")
-    print(f"Alternatives: {result.alternative_skills}")
-else:
-    print("Please select:")
-    for skill in result.candidate_skills:
-        print(f"  - {skill['skill_name']}")
-```
-
-### 📊 Decision Mechanism
-
-```
-High Confidence (>70%)   → Auto-recommend with reasoning
-Medium Confidence (40-70%) → Recommend + alternatives
-Low Confidence (<40%)     → Present candidates + ask user
-```
-
-### 🛠️ Features
-
-| Feature | Description |
-|---------|-------------|
-| **Semantic Search** | Vector similarity search based on embeddings |
-| **Intent Analysis** | Extracts core intent and keywords from requests |
-| **Confidence Evaluation** | Multi-dimensional scoring: similarity, history, relevance |
-| **Historical Learning** | Tracks success rates, dynamically optimizes ranking |
-| **Health Checking** | Detects skill status, provides fallback strategies |
-| **Cache Management** | Smart cleanup strategies, frees storage space |
-
-### 📁 Project Structure
-
-```
-SparkSatchel/
-├── SKILL.md       # Meta-skill definition
-├── README.md      # This file
-├── MODELS.md      # Model selection guide
-├── requirements.txt
-└── src/
-    ├── retriever.py      # Main entry point
-    ├── models/           # Embedding wrapper
-    ├── storage/          # Vector DB + history
-    ├── analysis/         # Intent + confidence
-    └── maintenance/      # Health + lifecycle + cache
-```
-
-### 🔧 Tech Stack
-
-- **Python** 3.10+
-- **ChromaDB** - Vector database
-- **sentence-transformers** - Embedding models
-- **SQLite** - History tracking
-
-### 📖 Documentation
-
-- [Design Doc](DESIGN.md) - Complete system design
-- [Model Guide](MODELS.md) - Embedding model selection and download
-- [SKILL.md](SKILL.md) - Meta-skill definition
-
-### 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-### 📄 License
-
-[MIT License](LICENSE)
-
----
-
-<div align="center">
-
-**Making every skill call precise** ⚡
+适用于 Claude Code、Cursor、Windsurf、Trae 等所有 AI IDE
 
 Made with ❤️ by [SparkSatchel Team](https://github.com/gccszs/Spark-Satchel)
 

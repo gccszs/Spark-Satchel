@@ -127,16 +127,45 @@ Choose the right model based on your scenario:
 
 #### Scenario Recommendations
 
-**Scenario 1: Chinese-dominant environment**
+**Quick Download with Script**
+
+Use the provided download script for convenience:
+
 ```bash
+# List available models
+python scripts/download_model.py --list
+
+# Download default model (already downloaded ✅)
+python scripts/download_model.py default
+
 # Download Chinese-optimized model
+python scripts/download_model.py chinese
+
+# Download high-accuracy multilingual model
+python scripts/download_model.py large
+
+# Download ultra-lightweight English model
+python scripts/download_model.py english
+```
+
+**Scenario 1: Chinese-dominant environment**
+
+```bash
+# Option A: Use download script
+python scripts/download_model.py chinese
+
+# Option B: Manual download
 pip install sentence-transformers
 python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('shibing624/text2vec-base-chinese')"
 ```
 
 **Scenario 2: English-only (fastest)**
+
 ```bash
-# Download ultra-lightweight model
+# Option A: Use download script
+python scripts/download_model.py english
+
+# Option B: Manual download
 pip install sentence-transformers
 python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
 ```

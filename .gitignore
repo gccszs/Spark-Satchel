@@ -67,3 +67,7 @@ htmlcov/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Non-core documentation files (keep only essential skill files)
+DESIGN.md
+GITHUB_DESCRIPTION.md

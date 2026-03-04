@@ -355,6 +355,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 Compatible with Claude Code, Cursor, Windsurf, Trae, and all AI IDEs
 
-🐝 Made with ❤️ by <a href="https://github.com/gccszs">Codestyle Team</a>
+🐝 Made with ❤️ by <a href="https://github.com/codestyle-mafeng">Codestyle Team</a>
 
 </div>

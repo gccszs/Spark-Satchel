@@ -10,7 +10,7 @@
 
 **English** | [中文](./README.md)
 
-• • •
+🌈 🧠 🌈
 
 **"身无彩凤双飞翼，心有灵犀一点通"**
 
@@ -19,8 +19,6 @@
 SparkSatchel helps you and your Agent find the perfect SKILL from thousands by inferring the best match for your current task.
 
 A different kind of spark! ⚡
-
-• • •
 
 *Compatible with Claude Code, Cursor, Windsurf, Trae, and all AI IDEs*
 

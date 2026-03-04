@@ -10,15 +10,13 @@
 
 [English](./README_EN.md) | **中文**
 
-• • •
+🌈 🧠 🌈
 
 **"身无彩凤双飞翼，心有灵犀一点通"**
 
 灵犀妙计帮助你和你的 Agent 从万千技能中推断出你最适合当前任务的技能。
 
 不一样的花火！⚡
-
-• • •
 
 *适用于 Claude Code、Cursor、Windsurf、Trae 等所有 AI IDE*
 

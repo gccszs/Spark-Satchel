@@ -10,7 +10,7 @@
 
 **English** | [中文](./README.md)
 
----
+• • •
 
 **"身无彩凤双飞翼，心有灵犀一点通"**
 
@@ -20,7 +20,7 @@ SparkSatchel helps you and your Agent find the perfect SKILL from thousands by i
 
 A different kind of spark! ⚡
 
----
+• • •
 
 *Compatible with Claude Code, Cursor, Windsurf, Trae, and all AI IDEs*
 
@@ -30,15 +30,14 @@ A different kind of spark! ⚡
 
 ## 📖 Table of Contents
 
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [Quick Start](#quick-start)
-- [Decision Mechanism](#decision-mechanism)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [License](#license)
+- [Overview](#-overview)
+- [Quick Start](#-quick-start)
+- [Key Features](#-key-features)
+- [Decision Mechanism](#-decision-mechanism)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Documentation](#-documentation)
+- [Contributing](#-contributing)
 
 ---
 
@@ -59,42 +58,19 @@ As the AI skill ecosystem grows, users may install hundreds of skills. When comp
 
 ---
 
-## ✨ Key Features
-
-### 🧠 Smart Inference
-
-- Understands natural language descriptions of user intent
-- Semantic similarity matching based on embeddings
-- Supports 50+ languages with bilingual optimization (Chinese/English)
-
-### ⚖️ Prudent Decision
-
-Responds intelligently based on confidence:
-
-| Confidence | Action | Example |
-|------------|--------|---------|
-| **High (>70%)** | Auto-recommend with reasoning | "Use pdf-skill, 92% success rate" |
-| **Medium (40-70%)** | Recommend + alternatives | "Use docx-skill, alternative: pdf-skill" |
-| **Low (<40%)** | Present candidates + ask user | "Choose: xlsx-skill, pandas-skill..." |
-
-### 📚 Continuous Learning
-
-- Tracks every skill call
-- Records success/failure feedback
-- Calculates skill success rates
-- Dynamically optimizes recommendation ranking
-
-### 🔧 Easy Maintenance
-
-- Automatic health checks (monitors skill status)
-- Smart cache cleanup (frees storage space)
-- Lifecycle management (version migration, fallback strategies)
-
----
-
 ## 🚀 Quick Start
 
-### Installation
+### Method 1: npx Installation (Recommended)
+
+```bash
+# Quick install with npx
+npx sparksatchel
+
+# Use immediately after installation
+python -c "from src.retriever import SparkSatchel; s = SparkSatchel(); print(s.retrieve('process PDF').reasoning)"
+```
+
+### Method 2: Git Clone
 
 ```bash
 # Clone repository
@@ -148,6 +124,39 @@ sparksatchel.feedback(result.recommended_skill, success=True)
 
 ---
 
+## ✨ Key Features
+
+### 🧠 Smart Inference
+
+- Understands natural language descriptions of user intent
+- Semantic similarity matching based on embeddings
+- Supports 50+ languages with bilingual optimization (Chinese/English)
+
+### ⚖️ Prudent Decision
+
+Responds intelligently based on confidence:
+
+| Confidence | Action | Example |
+|------------|--------|---------|
+| **High (>70%)** | Auto-recommend with reasoning | "Use pdf-skill, 92% success rate" |
+| **Medium (40-70%)** | Recommend + alternatives | "Use docx-skill, alternative: pdf-skill" |
+| **Low (<40%)** | Present candidates + ask user | "Choose: xlsx-skill, pandas-skill..." |
+
+### 📚 Continuous Learning
+
+- Tracks every skill call
+- Records success/failure feedback
+- Calculates skill success rates
+- Dynamically optimizes recommendation ranking
+
+### 🔧 Easy Maintenance
+
+- Automatic health checks (monitors skill status)
+- Smart cache cleanup (frees storage space)
+- Lifecycle management (version migration, fallback strategies)
+
+---
+
 ## 📊 Decision Mechanism
 
 ```
@@ -165,18 +174,21 @@ User Request → Intent Analysis → Vector Search → Confidence → Decision
 ### Usage Examples
 
 **Example 1: High Confidence**
+
 ```
 User: "Process this PDF"
 SparkSatchel: "I recommend pdf-skill because it specializes in PDF documents (92% historical success rate)"
 ```
 
 **Example 2: Medium Confidence**
+
 ```
 User: "Create a document"
 SparkSatchel: "I suggest docx-skill. pdf-skill is also available. Want me to compare?"
 ```
 
 **Example 3: Low Confidence**
+
 ```
 User: "Process data"
 SparkSatchel: "Found 3 matching skills:
@@ -270,10 +282,9 @@ SparkSatchel/
 ├── SKILL.md               # Meta-skill definition
 ├── README.md              # Chinese documentation
 ├── README_EN.md           # This file (English)
-├── DESIGN.md              # Design document
 ├── MODELS.md              # Model selection guide
-├── GITHUB_DESCRIPTION.md  # Repository description
 ├── requirements.txt       # Dependencies
+├── package.json           # npx configuration
 │
 ├── scripts/               # Utility scripts
 │   └── download_model.py  # Model download script
@@ -297,7 +308,6 @@ SparkSatchel/
 
 | Document | Description |
 |----------|-------------|
-| [DESIGN.md](DESIGN.md) | Complete system design document |
 | [MODELS.md](MODELS.md) | Embedding model selection and download guide |
 | [SKILL.md](SKILL.md) | Meta-skill definition |
 

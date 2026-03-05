@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "sparksatchel": {
+      "source": "gccszs/Spark-Satchel",
+      "sourceType": "github",
+      "computedHash": "9da6e755415d8e80d9d2c88466993d4159a1373f07ae4270201fd84f860e241f"
+    }
+  }
+}

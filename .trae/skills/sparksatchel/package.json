@@ -1,0 +1,30 @@
+{
+  "name": "sparksatchel",
+  "version": "1.0.0",
+  "description": "灵犀妙计 SparkSatchel - Intelligent skill retrieval system for AI IDEs",
+  "bin": {
+    "sparksatchel": "src/retriever.py"
+  },
+  "scripts": {
+    "start": "python src/retriever.py",
+    "install-deps": "pip install -r requirements.txt"
+  },
+  "keywords": [
+    "skill-retrieval",
+    "semantic-search",
+    "claude-code",
+    "cursor",
+    "ai-ide",
+    "embeddings",
+    "bilingual"
+  ],
+  "author": "Codestyle Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gccszs/Spark-Satchel.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

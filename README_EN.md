@@ -59,7 +59,7 @@ As the AI skill ecosystem grows, users may install hundreds of skills. When comp
 
 ## 🤝 Relationship with find-skills
 
-After reading this documentation, I can clearly tell you: **These two skills are NOT competitors, they are COMPLEMENTS!** They solve completely different problems.
+ **These two skills are NOT competitors, they are COMPLEMENTS!** They solve completely different problems.
 <img width="1713" height="1038" alt="image" src="https://github.com/user-attachments/assets/d93d944c-a373-4e17-9367-881de020f6f3" />
 
 ### Core Differences
